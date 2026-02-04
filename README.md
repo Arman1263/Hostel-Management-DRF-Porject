@@ -153,17 +153,18 @@ POST /api/complaints/
 GET /api/complaints/
 PATCH /api/complaints/{id}/
 
+## 📊 Role-Based Feature Access
+
+| Feature | 👨‍💼 Admin | 🛡️ Warden | 🎓 Student |
+|----------|------------|------------|------------|
+| Manage Students | ✅ | ❌ | ❌ |
+| Manage Hostels | ✅ | ❌ | ❌ |
+| Room Allocation | ✅ | ✅ | ❌ |
+| Raise Complaint | ❌ | ❌ | ✅ |
+| Resolve Complaint | ❌ | ✅ | ❌ |
+
 ---
 
-## 🛡 Permission Logic
-
-Feature	Admin	Warden	Student
-Manage Students	✅	❌	❌
-Manage Hostels	✅	❌	❌
-Room Allocation	✅	✅	❌
-Raise Complaint	❌	❌	✅
-Resolve Complaint	❌	✅	❌
----
 
 ## ⚙️ Setup Instructions
 
@@ -202,19 +203,25 @@ cd frontend
 npm install
 npm run dev
 ```
-🧪 Demo Workflow
-Admin creates hostels and rooms
-Admin assigns students and wardens
-Student raises complaint or checks fee status
-Warden resolves complaints
-Admin monitors full hostel analytics
+## 🧪 Demo Workflow
 
-🔮 Future Enhancements
-Mobile App Integration
-Payment Gateway Integration (Razorpay / Stripe)
-Notification System (Email & SMS)
-Analytics Dashboard
-Multi-Hostel SaaS Version
+1. Admin creates hostels and rooms  
+2. Admin assigns students and wardens  
+3. Student raises complaint or checks fee status  
+4. Warden resolves complaints  
+5. Admin monitors full hostel analytics  
+
+---
+
+## 🔮 Future Enhancements
+
+1. Mobile App Integration  
+2. Payment Gateway Integration (Razorpay / Stripe)  
+3. Notification System (Email & SMS)  
+4. Analytics Dashboard  
+5. Multi-Hostel SaaS Version  
+
+--- 
 
 👨‍💻 Author
 Arman Shikalgar
