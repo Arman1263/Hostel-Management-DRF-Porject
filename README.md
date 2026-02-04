@@ -1,80 +1,75 @@
 # 🏨 Hostel Management System
 
-A full-stack **Role-Based Hostel Management System** built using **Django REST Framework (DRF)** and **React (Bootstrap UI)** with **JWT Authentication**.
+A scalable **Role-Based Hostel Management Backend** built using **Django REST Framework (DRF)** with **JWT Authentication** and a **React Bootstrap Dashboard**.
 
-This project demonstrates **real-world backend architecture**, **secure permission handling**, and **role-based complaint workflow management**.
+This project demonstrates real-world backend architecture, modular system design, and role-based workflow automation for hostel administration.
+
+---
+
+## 🚀 Project Overview
+
+Traditional hostel management relies heavily on manual record keeping, which often leads to:
+
+- Inefficient room allocation
+- Poor complaint tracking
+- Manual fee monitoring
+- Lack of centralized role-based access
+
+This system provides a secure and automated backend solution that manages hostel operations through REST APIs.
 
 ---
 
-## 🚀 Features
-
----
+## ✨ Core Features
 
 ### 🔐 Authentication & Role Management
-
 - JWT-based authentication
 - Custom User Model
-- Role-based authorization system
+- Role-Based Access Control (RBAC)
 
 Supported Roles:
-
-- 👨‍💼 **Admin**
-- 🎓 **Student**
-- 🧑‍✈️ **Warden**
-
----
-
-### 👨‍💼 Admin Capabilities
-
-Admin controls the entire hostel ecosystem:
-
-- Create Students & Wardens
-- Create Hostels
-- Create Rooms under Hostels
-- Allocate Students → Rooms
-- Assign Wardens → Hostels
-- View and manage all complaints
+- 👨‍💼 Admin
+- 🧑‍✈️ Warden
+- 🎓 Student
 
 ---
 
-### 🎓 Student Capabilities
-
-Students can:
-
-- Login securely
-- Raise complaints
-- Track complaint status
-- View only their own complaints
-
-Complaint automatically links to:
-
-- Student account
-- Hostel (via Room Allocation)
+### 🏢 Hostel & Room Management
+- Create and manage hostels
+- Floor and room hierarchy
+- Automated student room allocation
+- Room availability tracking
 
 ---
 
-### 🧑‍✈️ Warden Capabilities
-
-Wardens can:
-
-- View complaints belonging to their hostel
-- Update complaint status:
+### 🧾 Complaint Management
+- Students can raise complaints
+- Complaints automatically mapped to hostel
+- Wardens resolve hostel-specific complaints
+- Status workflow:
   - OPEN
   - IN_PROGRESS
   - RESOLVED
 
 ---
 
-## 💻 Frontend
+### 📱 API-First Architecture
+Backend designed to support:
+- Web dashboards
+- Mobile applications
+- Third-party integrations
 
-A lightweight **React + Bootstrap dashboard** is included to demonstrate backend functionality.
+---
 
-Features:
+## 💻 Frontend Dashboard
 
-- Login UI
+Built using **React + Bootstrap** to demonstrate backend workflows.
+
+Includes:
+- Authentication UI
+- Admin Management Panel
 - Student Complaint Dashboard
-- Warden Complaint Management Panel
-- Admin Registration Panel (Student / Warden creation)
+- Warden Complaint Resolution Panel
+- Fee Tracking Interface
 
 ---
 
@@ -98,34 +93,36 @@ Features:
 
 ## 📸 Screenshots
 
-### 🔐 Authentication
+### 👨‍💼 Admin Panel
+Admin manages hostels, users, rooms, and system-wide operations.
 
-![Login Screenshot](screenshots/login.png)
-
----
-
-### 🎓 Student Dashboard
-
-![Student Dashboard](screenshots/student-dashboard.png)
+![Admin Dashboard](screenshots/admin_panel.png)
 
 ---
 
-### 🧑‍✈️ Warden Complaint Panel
+### 🧑‍✈️ Warden Panel
+Wardens monitor hostel complaints and update resolution status.
 
-![Warden Dashboard](screenshots/warden-dashboard.png)
+![Warden Dashboard](screenshots/warden_panel.png)
 
 ---
 
+### 🎓 Student Panel
+Students can track room details, raise complaints, and monitor fee status.
+
+![Student Dashboard](screenshots/student_panel.png)
+
+---
 ## 📁 Project Structure
-
 Hostel_Management_DRF/
 │
-├── accounts/ # User model, auth, roles
-├── hostels/ # Hostel & Warden mapping
-├── rooms/ # Room & Student allocation
+├── accounts/ # User authentication & roles
+├── hostels/ # Hostel and warden mapping
+├── rooms/ # Room and allocation logic
 ├── complaints/ # Complaint workflow system
-├── common/ # Constants & permissions
-├── config/ # Settings & root URLs
+├── payments/ # Fee and payment tracking
+├── common/ # Constants and permissions
+├── config/ # Project settings
 │
 ├── frontend/ # React dashboard
 ├── requirements.txt
@@ -133,10 +130,9 @@ Hostel_Management_DRF/
 
 ---
 
-## 🔑 API Endpoints Overview
+## 🔑 Key API Modules
 
 ### Authentication
-
 POST /api/auth/login/
 POST /api/auth/refresh/
 GET /api/auth/me/
@@ -144,10 +140,7 @@ GET /api/auth/me/
 
 ---
 
-### Admin APIs
-
-POST /api/auth/create-student/
-POST /api/auth/create-warden/
+### Hostel & Room Management
 POST /api/hostels/
 POST /api/rooms/
 POST /api/rooms/allocate/
@@ -155,136 +148,74 @@ POST /api/rooms/allocate/
 
 ---
 
-### Complaint APIs
-
-POST /api/complaints/ → Student creates complaint
-GET /api/complaints/ → Role-based complaint listing
-PATCH /api/complaints/{id}/ → Warden/Admin updates status
-
+### Complaint Management
+POST /api/complaints/
+GET /api/complaints/
+PATCH /api/complaints/{id}/
 
 ---
 
 ## 🛡 Permission Logic
 
-| Role | View Complaints | Create Complaints | Update Complaints |
-|--------|----------------|------------------|-------------------|
-| Admin | All | ❌ | ✅ |
-| Student | Own Only | ✅ | ❌ |
-| Warden | Hostel Only | ❌ | ✅ |
-
+Feature	Admin	Warden	Student
+Manage Students	✅	❌	❌
+Manage Hostels	✅	❌	❌
+Room Allocation	✅	✅	❌
+Raise Complaint	❌	❌	✅
+Resolve Complaint	❌	✅	❌
 ---
 
 ## ⚙️ Setup Instructions
 
----
-
-### 1️⃣ Clone Repository
-
+```bash
+1️⃣ Clone Repository
 git clone https://github.com/Arman1263/Hostel-Management-DRF-Porject.git
 cd Hostel-Management-DRF-Porject
 
-
----
-
-### 2️⃣ Create Virtual Environment
-
+2️⃣ Create Virtual Environment
 python -m venv venv
-
-
 Activate:
-
 Windows:
 venv\Scripts\activate
-
-
 Linux / Mac:
 source venv/bin/activate
 
-
----
-
-### 3️⃣ Install Dependencies
-
+3️⃣ Install Dependencies
 pip install -r requirements.txt
 
-
----
-
-### 4️⃣ Environment Variables
-
-Create `.env` file:
-
+4️⃣ Environment Variables
+Create .env file:
 SECRET_KEY=your-secret-key
 DEBUG=True
 
-
----
-
-### 5️⃣ Apply Migrations
-
+5️⃣ Apply Migrations
 python manage.py migrate
 
-
----
-
-### 6️⃣ Create Admin User
-
+6️⃣ Create Admin User
 python manage.py createsuperuser
 
-
----
-
-### 7️⃣ Run Backend Server
-
+7️⃣ Run Backend Server
 python manage.py runserver
 
-
----
-
-### 8️⃣ Run Frontend
-
+8️⃣ Run Frontend
 cd frontend
 npm install
 npm run dev
+```
+🧪 Demo Workflow
+Admin creates hostels and rooms
+Admin assigns students and wardens
+Student raises complaint or checks fee status
+Warden resolves complaints
+Admin monitors full hostel analytics
 
+🔮 Future Enhancements
+Mobile App Integration
+Payment Gateway Integration (Razorpay / Stripe)
+Notification System (Email & SMS)
+Analytics Dashboard
+Multi-Hostel SaaS Version
 
----
-
-## 🧪 Demo Workflow
-
-1. Admin creates hostel & rooms  
-2. Admin assigns:
-   - Students → Rooms  
-   - Wardens → Hostels  
-3. Student raises complaint  
-4. Warden resolves complaint  
-
----
-
-## 📚 Learning Outcomes
-
-This project demonstrates:
-
-- Custom Authentication System
-- Role-Based Access Control
-- Relational Database Design
-- REST API Architecture
-- Full-Stack Integration
-- Real-world Workflow Modeling
-
----
-
-## 👨‍💻 Author
-
-**Arman Shikalgar**
-
-AI & Data Science Student  
-Python Developer | Backend Enthusiast  
-
-GitHub:  
-https://github.com/Arman1263
-✅ Now you can:
-
-git add README.md
-git commit -m "Updated professional README"
-git push
+👨‍💻 Author
+Arman Shikalgar
+AI & Data Science Student
